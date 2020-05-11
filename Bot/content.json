@@ -1,0 +1,167 @@
+{
+  "intents": [
+    {
+      "tag": "1",
+      "patterns": [
+        "Hi",
+        "Is anyone there?",
+        "Hello"
+      ],
+      "responses": [
+        "Hi",
+        "Hello",
+        "Hi there, how can I help?"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "2",
+      "patterns": [
+        "Who are you",
+        "What is your name",
+        "Do you have a name"
+      ],
+      "responses": [
+        "Hi, I'm slack",
+        "My name is slack",
+        "I'm Slack"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "3",
+      "patterns": [
+        "emp info",
+        "employee details, details of employee"
+      ],
+      "Questions": [
+        {
+          "type": "Question",
+          "input-format": "string",
+          "field-name": "empName",
+          "pattern": [
+            "Employee Name : ",
+            "Please share employee Name :",
+            "Which employee details you wish to see :"
+          ]
+        }
+      ],
+      "context_set": "",
+      "command": [
+        {
+          "moduleName": "commands.employee.EmployeeInfoByNameCommand",
+          "className": "EmployeeInfoByName"
+        }
+      ]
+    },
+     {
+      "tag": "4",
+      "patterns": [
+        "emp info",
+        "employee details, details of employee"
+      ],
+      "Questions": [
+        {
+          "type": "Question",
+          "input-format": "string",
+          "field-name": "empName",
+          "pattern": [
+            "Employee Name : ",
+            "Please share employee Name :",
+            "Which employee details you wish to see :"
+          ]
+        }
+      ],
+      "context_set": ""
+    },
+     {
+      "tag": "5",
+      "patterns": [
+        "emp info",
+        "employee details, details of employee"
+      ],
+      "context_set": "",
+      "command": [
+        {
+          "moduleName": "commands.employee.EmployeeInfoByNameCommand",
+          "className": "EmployeeInfoByName"
+        }
+      ]
+    },
+    {
+    "tag": "4",
+      "patterns": [
+        "api emp info",
+        "emp api info"
+      ],
+      "Questions": [
+        {
+          "type": "Question",
+          "input-format": "string",
+          "field-name": "empName",
+          "pattern": [
+            "Employee Name : ",
+            "Please share employee Name :",
+            "Which employee details you wish to see :"
+          ]
+        }
+      ],
+      "context_set": "",
+      "command": [
+        {
+          "moduleName": "commands.api.EmployeeInfoCommand",
+          "className": "EmployeeInfofromApi"
+        }
+      ]
+    },
+
+    {
+      "tag": "6",
+      "patterns": [
+        "today work tasks",
+        "today tasks"
+      ],
+      "responses": [
+        "modeling the data for bot"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "7",
+      "patterns": [
+        "How are you",
+        "What's up"
+      ],
+      "responses": [
+        "I'm fine, Thanks for asking.",
+        "I'm doing well",
+        "I'm fine. And you ?"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "8",
+      "patterns": [
+        "Bye",
+        "See you later",
+        "Goodbye"
+      ],
+      "responses": [
+        "See you later, thanks for visiting",
+        "Have a nice day",
+        "Bye! Come back again soon."
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "9",
+      "patterns": [
+        "Thank you"
+      ],
+      "responses": [
+        "You are welcome"
+      ],
+      "context_set": ""
+    }
+  ]
+}

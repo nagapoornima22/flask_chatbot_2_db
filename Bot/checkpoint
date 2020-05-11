@@ -1,0 +1,2 @@
+model_checkpoint_path: "E:/python_workspace/chatbot_2_flask/app/main/Bot/model.tflearn"
+all_model_checkpoint_paths: "E:/python_workspace/chatbot_2_flask/app/main/Bot/model.tflearn"
