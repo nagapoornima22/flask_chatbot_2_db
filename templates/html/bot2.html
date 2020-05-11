@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <title>Chatbot</title>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+      body {
+        font-family: monospace;
+      }
+      h1 {
+        background-color: yellow;
+        display: inline-block;
+        font-size: 3em;
+        margin: 0;
+        padding: 14px;
+      }
+      h3 {
+        color: black;
+        font-size: 20px;
+        margin-top: 3px;
+        text-align: center;
+      }
+      #chatbox {
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;
+        margin-top: 60px;
+      }
+      #userInput {
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;
+        margin-top: 60px;
+      }
+      #textInput {
+        width: 90%;
+        border: none;
+        border-bottom: 3px solid black;
+        font-family: monospace;
+        font-size: 17px;
+      }
+      .userText {
+        color: white;
+        font-family: monospace;
+        font-size: 17px;
+        text-align: right;
+        line-height: 30px;
+      }
+      .userText span {
+        background-color: #808080;
+        padding: 10px;
+        border-radius: 2px;
+      }
+      .botText {
+        color: white;
+        font-family: monospace;
+        font-size: 17px;
+        text-align: left;
+        line-height: 30px;
+      }
+      .botText span {
+        background-color: #4169e1;
+        padding: 10px;
+        border-radius: 2px;
+      }
+      #tidbit {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 300px;
+      }
+      .boxed {
+        margin-left: auto;
+        margin-right: auto;
+        width: 78%;
+        margin-top: 60px;
+        border: 1px solid green;
+      }
+      .box {
+        border: 2px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <img />
+    <center>
+      <h1>
+        Company ChatBot
+      </h1>
+    </center>
+
+    <div class="box"></div>
+    <div class="boxed">
+      <div>
+        <div id="chatbox">
+          <img
+            src="https://user-images.githubusercontent.com/20112458/49326597-773b7280-f57a-11e8-853d-20ed61d18b0d.png"
+            alt="CANDICE"
+            style="width:40px;height:40px;"
+          />
+          <p class="botText">
+            <span>Hi! I'm  Chatbot️</span>
+          </p>
+        </div>
+        <div id="userInput">
+          <input id="textInput" type="text" name="msg" placeholder="Message" />
+          <input id="empname" type=hidden  name="name" />
+        </div>
+      </div>
+      <script>
+        function getBotResponse() {
+          var rawText = $("#textInput").val();
+          var rawName  = $("#empname").val();
+          if(rawName=='')
+          {
+            rawName = rawText;
+          }
+          //alert(hidden)
+          var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";
+          $("#textInput").val("");
+          $("#empname").val("");
+          $("#chatbox").append(userHtml);
+          document
+            .getElementById("userInput")
+            .scrollIntoView({ block: "start", behavior: "smooth" });
+          $.get("/get", { msg: rawText, name: rawName }).done(function(data) {
+           console.log("response " +data);
+           console.log("response" + typeof data);
+          //var response = [{'id': 1, 'name': 'Paul', 'salary': 20000, 'age': 32, 'address': 'California'}];
+          var response  = data;
+          //console.log(typeof response);
+          console.log(response);
+          checkData = Array.isArray(data);
+          console.log("Array"+checkData)
+          if(checkData) {
+          var result = '';
+          for (var i=0;i<response.length;i++){
+          console.log(response[i]);
+          for (var key in response[i]) {
+           result += key + ":" + response[i][key] +",\n";
+       console.log(key);
+       console.log(response[i][key]);
+   }
+<!--          var jdata = JSON.parse(response[i], function(key, value) {-->
+<!--               result += key + ":" + value +"\n";-->
+<!--         console.log(key, "=>", value);-->
+
+
+<!--            //return value;-->
+<!--         });-->
+         }
+         var botHtml = '<p class="botText"><span>' + result + "</span></p>";
+         }
+         else {
+          var find = response.search("!");
+          console.log("find"+find);
+          if (find!=-1) {
+               console.log("split res"+response);
+               var res = response.split("!");
+               $("#empname").val(res[0])
+               var botHtml = '<p class="botText"><span>' + res[0] + "</span></p>";
+              }
+          else {
+                 var botHtml = '<p class="botText"><span>' + response + "</span></p>";
+
+              }
+        }
+
+            $("#chatbox").append(botHtml);
+            document
+              .getElementById("userInput")
+              .scrollIntoView({ block: "start", behavior: "smooth" });
+          });
+        }
+        $("#textInput").keypress(function(e) {
+          if (e.which == 13) {
+            getBotResponse();
+          }
+        });
+      </script>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot</title>
+    <base href="/">
+    <script
+  src="https://code.jquery.com/jquery-3.5.0.min.js"
+  integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+  crossorigin="anonymous"></script>
+        <script
+  src="https://cdn.jsdelivr.net/npm/jwt-decode@2.2.0/lib/index.min.js"
+  crossorigin="anonymous"></script>
+</head>
+<body>
+     <form action= "/login" method ="POST" id="loginFormId">
+         <input type = "username" name = "username" placeholder="Username">
+         <input type = "password" name = "password" placeholder="Password">
+         <input type = "button" value = "Log in" onclick="loginUser()">
+
+
+     </form>
+
+<div id="chatFormId">
+<p> User is available!!</p>
+    <ul id="employeeList"></ul>
+    <button onclick="getEmployees()"> Employees</button>
+</div>
+
+<script>
+function getEmployees(){
+$.ajax({
+  method: "GET",
+  url: "/employees"
+})
+  .done(function( msg ) {
+    if(Array.isArray(msg)) {
+    msg.foreach(item => {
+    $('#employeeList').innerHTML=  '<li>'+item+'</li>';
+    });
+    }else{
+    alert('Not an array !!');
+    }
+
+  });
+}
+function loginUser() {
+var userVal = $("[name='username']").val();
+var pwdVal = $("[name='password']").val();
+console.log(userVal, pwdVal);
+$.ajax({
+  method: "POST",
+  url: "/login",
+  data: { username: userVal, password: pwdVal }
+})
+  .done(function( msg ) {
+    localStorage.setItem('token', msg.token);
+
+    visibility('block', 'none');
+  });
+}
+    var user = localStorage.getItem('token');
+    console.log('Found user', user);
+function visibility(isLoginForm, isChatForm) {
+$('#loginFormId').css('display',isLoginForm);
+$('#chatFormId').css('display',isChatForm);
+ console.log('Found elements', isLoginForm, isChatForm);
+}
+
+if(user) {
+visibility('none', 'block');
+}else{
+visibility('block', 'none');
+}
+</script>
+</body>
+
+</html>
